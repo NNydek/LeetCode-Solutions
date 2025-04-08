@@ -3,15 +3,14 @@ SELECT
     s.user_id,
     CAST(
         ISNULL(
-            SUM(
+            AVG(
                 CASE 
                     WHEN action = 'timeout'
                         THEN 0.0
                     WHEN action = 'confirmed'
                         THEN 1.0
                 END
-            ) / COUNT(action)
-            , 0
+            ), 0
         ) AS DECIMAL(10,2)
     ) AS confirmation_rate
 FROM Signups s
